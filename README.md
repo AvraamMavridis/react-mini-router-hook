@@ -1,5 +1,7 @@
 # react-mini-router-hook
 
+<img src="https://github.com/AvraamMavridis/react-mini-router-hook/blob/master/logo.png?raw=true" height="100" />
+
 Mini Router for React based on Hooks and Context. 1.7k
 
 
