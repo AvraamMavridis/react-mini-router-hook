@@ -1,9 +1,22 @@
 import React, { createElement, Children, useState, useEffect } from 'react';
-import routeBuild from './route';
+import routeBuild from './routeBuild';
 
 const routes = {};
 
+function Route() {}
+
+function normalizeRoute(path, parent) {
+  if (!path) return parent ? parent.route : '/';
+  if (path[0] === '/') return path;
+  if (parent == null) return path;
+  return `${ parent.route }/${ path }`;
+}
+
 function RouterRender(props) {
+  function addRoutes(routes, parent) {
+    Children.forEach(routes, r => addRoute(r, parent));
+  }
+
   function addRoute(el, parent) {
     const { path, component, children, ...routeProps } = el.props;
 
@@ -17,10 +30,6 @@ function RouterRender(props) {
     routes[route] = render;
 
     if (children) addRoutes(children, { route, render });
-  }
-
-  function addRoutes(routes, parent) {
-    Children.forEach(routes, r => addRoute(r, parent));
   }
 
   addRoutes(props.children);
@@ -58,15 +67,6 @@ function Router(props) {
       <RouterRender {...props} location={path || props.location} />
     </RouterContext.Provider>
   );
-}
-
-function Route() {}
-
-function normalizeRoute(path, parent) {
-  if (!path) return parent ? parent.route : '/';
-  if (path[0] === '/') return path;
-  if (parent == null) return path;
-  return `${ parent.route }/${ path }`;
 }
 
 export {

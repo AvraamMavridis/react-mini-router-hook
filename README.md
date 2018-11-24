@@ -32,3 +32,15 @@ export default function NavBar() {
   <ul>);
 }
 ```
+
+### Get current path
+
+```js
+import { RouterContext } from 'react-mini-router-hook';
+
+export default function Helmet() {
+  const { path } = React.useContext(RouterContext);
+
+  return (<title>{path}</title>);
+}
+```
