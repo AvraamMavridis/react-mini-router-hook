@@ -1,0 +1,42 @@
+{
+  "name": "react-mini-router-hook",
+  "version": "1.0.0",
+  "description": "Mini Router for React using hooks",
+  "main": "dist/index.js",
+  "dependencies": {
+    "path-to-regexp": "^2.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-config-avraam": "^1.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "rollup": "^0.67.3",
+    "rollup-plugin-buble": "^0.19.4",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvraamMavridis/react-mini-router-hook.git"
+  },
+  "keywords": [
+    "React",
+    "Router",
+    "Mini"
+  ],
+  "author": "AvraamMavridis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AvraamMavridis/react-mini-router-hook/issues"
+  },
+  "homepage": "https://github.com/AvraamMavridis/react-mini-router-hook#readme"
+}
