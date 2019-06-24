@@ -1,43 +1,12 @@
-import React, { createElement, Children, useState, useEffect } from 'react';
-import routeBuild from './routeBuild';
-
-const routes = {};
-
-function Route() {}
-
-function normalizeRoute(path, parent) {
-  if (!path) return parent ? parent.route : '/';
-  if (path[0] === '/') return path;
-  if (parent == null) return path;
-  return `${ parent.route }/${ path }`;
-}
-
-function RouterRender(props) {
-  function addRoutes(routes, parent) {
-    Children.forEach(routes, r => addRoute(r, parent));
-  }
-
-  function addRoute(el, parent) {
-    const { path, component, children, ...routeProps } = el.props;
-
-    const render = (params, renderProps) => {
-      const finalProps = { ...props, ...routeProps, ...renderProps, params };
-      const children = createElement(component, finalProps);
-      return parent ? parent.render(params, { children }) : children;
-    };
-
-    const route = normalizeRoute(path, parent).replace(/\/\//g, '/');
-    routes[route] = render;
-
-    if (children) addRoutes(children, { route, render });
-  }
-
-  addRoutes(props.children);
-  const router = routeBuild(routes);
-  return router(props.location, { children: null });
-}
+import React, { useState, useEffect } from 'react';
+import RenderRoute from './routeBuild';
 
 const RouterContext = React.createContext({ path: undefined, setPath: () => null });
+
+function Route(props) {
+  const { path, location } = React.useContext(RouterContext);
+  return RenderRoute(props.component || props.children, props.path, path, location)
+}
 
 function Router(props) {
   const [ path, setState ] = useState(props.location);
@@ -60,17 +29,24 @@ function Router(props) {
     };
   });
 
-  const contextState = { path, setPath };
+  const contextState = { path, setPath, location: props.location };
 
   return (
     <RouterContext.Provider value={contextState}>
-      <RouterRender {...props} location={path || props.location} />
+      {props.children}
     </RouterContext.Provider>
   );
+}
+
+function Link(props) {
+  const { setPath } = React.useContext(RouterContext)
+
+  return <a onClick={() => setPath(props.to)} {...props} />
 }
 
 export {
   Route,
   Router,
-  RouterContext
+  RouterContext,
+  Link
 };

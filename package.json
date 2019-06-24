@@ -1,14 +1,14 @@
 {
   "name": "react-mini-router-hook",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Mini Router for React using hooks",
   "main": "dist/index.js",
   "dependencies": {
     "path-to-regexp": "^2.4.0"
   },
   "peerDependencies": {
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
