@@ -30,7 +30,21 @@ export default function NavBar() {
   return (
     <ul>
       <li onClick={() => setPath('/users/1')}>Menu Item 1</li>
-      <li onClick={() => setPath('/users/2')}>Menu Item 1</li>
+      <li onClick={() => setPath('/users/2')}>Menu Item 2</li>
+  <ul>);
+}
+```
+
+### Using links (react-router style)
+
+```js
+import { Link } from 'react-mini-router-hook';
+
+export default function NavBar() {
+  return (
+    <ul>
+      <li><Link to="/users/1">Menu Item 1</Link></li>
+      <li><Link to="/users/1">Menu Item 2</Link></li>
   <ul>);
 }
 ```

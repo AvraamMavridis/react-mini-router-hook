@@ -1,23 +1,28 @@
+import React from 'react'
 
 const Regexp = require('path-to-regexp');
 
-export default function RouteBuild (routes) {
-  return function routeBuild (location, props) {
-    props = props || {};
-    const params = {};
+function normalizePath(path, location) {
+  if (!path) return location || '/';
+  if (path[0] === '/') return path;
+  if (parent == null) return path;
+  return `location/${ path }`;
+}
 
-    for (const route in routes) {
-      const m = match(route, params, location);
-      const fn = routes[route];
+export default function RenderRoute(route, routePath, currentPath, location) {
+  const params = {};
 
-      if (m) {
-        if (typeof fn !== 'function') return fn;
-        return fn(params, props);
-      }
+  const m = match(normalizePath(routePath, location), params, currentPath);
+
+  if (m) {
+    if (typeof route !== 'function') {
+      return route;
     }
 
-    return null;
-  };
+    return React.createElement(route, params);
+  }
+
+  return null;
 }
 
 function match(path, params, pathname) {
@@ -31,7 +36,10 @@ function match(path, params, pathname) {
   for (let i = 1, len = m.length; i < len; ++i) {
     const key = keys[i - 1];
     const val = typeof m[i] === 'string' ? decodeURIComponent(m[i]) : m[i];
-    if (key) params[key.name] = val;
+    if (key) {
+      // TODO: fix mutation of input parameter
+      params[key.name] = val;
+    }
   }
 
   return true;
